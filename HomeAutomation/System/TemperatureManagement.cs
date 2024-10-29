@@ -18,7 +18,7 @@ public class TemperatureManagement(
         double targetTemperature = _tempController.GetTargetTemperature();
         double curTemperature = _tempSensor.GetCurTemperature();
 
-        Console.WriteLine($"current temp: {curTemperature}C, target temp: {targetTemperature}C");
+        Console.WriteLine($"Current temp: {curTemperature:F2}°C, target temp: {targetTemperature:F2}°C");
 
         if (curTemperature < targetTemperature)
         {

@@ -1,10 +1,14 @@
-﻿using HomeAutomation.Actuators;
+﻿using System.Globalization;
+using HomeAutomation.Actuators;
 using HomeAutomation.Controllers;
 using HomeAutomation.Sensors;
 using HomeAutomation.System;
 
+Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
+
 double simulationInterval = 10; // [s]
-int numSimulationSteps = 100;
+int numSimulationSteps = 70;
 
 var room = new Room(20.0);
 var tempSensor = new DummyTemperatureSensor(room);
