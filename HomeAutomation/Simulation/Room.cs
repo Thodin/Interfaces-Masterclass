@@ -1,3 +1,5 @@
+namespace HomeAutomation.Simulation;
+
 public class Room(double initialTemperature)
 {
     public double Temperature { get; private set; } = initialTemperature; // [C]

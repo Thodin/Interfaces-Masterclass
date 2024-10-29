@@ -1,3 +1,5 @@
+using HomeAutomation.Simulation;
+
 namespace HomeAutomation.Sensors;
 
 public interface ITemperatureProvider

@@ -2,6 +2,7 @@
 using HomeAutomation.Actuators;
 using HomeAutomation.Controllers;
 using HomeAutomation.Sensors;
+using HomeAutomation.Simulation;
 using HomeAutomation.System;
 
 Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
