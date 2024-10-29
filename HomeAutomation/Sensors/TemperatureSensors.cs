@@ -15,4 +15,14 @@ public class DummyTemperatureSensor(Room room) : ITemperatureProvider
     {
         return _room.Temperature;
     }
+
+    public void SetCalibrationFactor()
+    {
+        // Pretend to set calibration factor...
+    }
+
+    public void SetCalibrationOffset()
+    {
+        // Pretend to set calibration offset...
+    }
 }
