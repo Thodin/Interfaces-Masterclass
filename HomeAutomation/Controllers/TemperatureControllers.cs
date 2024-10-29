@@ -5,10 +5,12 @@ public interface ITemperatureController
     double GetTargetTemperature();
 }
 
-public class DummyTemperatureController : ITemperatureController
+public class DummyTemperatureController(double targetTemperature) : ITemperatureController
 {
+    private readonly double _targetTemperature = targetTemperature;
+
     public double GetTargetTemperature()
     {
-        return 24.0;
+        return _targetTemperature;
     }
 }
