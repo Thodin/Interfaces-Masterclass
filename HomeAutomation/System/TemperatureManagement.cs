@@ -26,8 +26,8 @@ public class TemperatureManagement(
             {
                 Console.WriteLine("Turning heater on.");
                 _heater.TurnOn();
+                _heater.SetHeatingPower(1000);
             }
-            _heater.SetHeatingPower(1000);
         }
         else
         {
