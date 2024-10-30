@@ -12,7 +12,7 @@ double simulationInterval = 10; // [s]
 int numSimulationSteps = 70;
 
 var room = new Room(20.0);
-var tempSensor = new DummyTemperatureSensor(room);
+var tempSensor = new PerfectTemperatureSensor(room);
 var heater = new DummyHeater();
 var tempController = new DummyTemperatureController(24.0);
 
