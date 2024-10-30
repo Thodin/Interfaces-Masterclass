@@ -3,12 +3,12 @@ namespace HomeAutomation.Simulation;
 public class Room(double initialTemperature)
 {
     public double Temperature { get; private set; } = initialTemperature; // [C]
-    private double _environmentTemperature = 5; // [C]
-    private double _volume = 40; // [m^3]
-    private double _surface = 76; // [m^2]
-    private double _density = 1.204; // [kg / m^3]
-    private double _specificHeatCapacity = 1005; // [J / (kg K)]
-    private double _thermalTransmittance = 0.5; // [W/(m^2 K)]
+    private readonly double _environmentTemperature = 5; // [C]
+    private readonly double _volume = 40; // [m^3]
+    private readonly double _surface = 76; // [m^2]
+    private readonly double _density = 1.204; // [kg / m^3]
+    private readonly double _specificHeatCapacity = 1005; // [J / (kg K)]
+    private readonly double _thermalTransmittance = 0.5; // [W/(m^2 K)]
 
 
     // heating in [W]
