@@ -8,7 +8,7 @@ public interface IHeatProvider
     bool IsOn();
 }
 
-public class DummyHeater : IHeatProvider
+public class SimpleHeater : IHeatProvider
 {
     private bool _isOn = false;
     private double _power = 0.0;
@@ -45,5 +45,10 @@ public class DummyHeater : IHeatProvider
     {
         if (!_isOn) { return 0.0; }
         return _power;
+    }
+
+    public void TurnOnForDuration(TimeSpan duration)
+    {
+        // Some implementation...
     }
 }

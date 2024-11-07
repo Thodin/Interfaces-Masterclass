@@ -13,8 +13,8 @@ int numSimulationSteps = 70;
 
 var room = new Room(20.0);
 var tempSensor = new PerfectTemperatureSensor(room);
-var heater = new DummyHeater();
-var tempController = new DummyTemperatureController(24.0);
+var heater = new SimpleHeater();
+var tempController = new SimpleTemperatureController(24.0);
 
 var tempManagement = new TemperatureManagement(tempSensor, heater, tempController);
 

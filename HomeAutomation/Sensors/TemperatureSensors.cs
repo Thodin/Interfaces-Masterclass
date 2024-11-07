@@ -16,12 +16,12 @@ public class PerfectTemperatureSensor(Room room) : ITemperatureProvider
         return _room.Temperature;
     }
 
-    public void SetCalibrationFactor()
+    public void SetCalibrationFactor(double factor)
     {
         // Pretend to set calibration factor...
     }
 
-    public void SetCalibrationOffset()
+    public void SetCalibrationOffset(double offset)
     {
         // Pretend to set calibration offset...
     }
