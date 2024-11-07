@@ -1,2 +1,6 @@
 bin/
 obj/
+*.mkv
+*.mp4
+*.png
+*.drawio**
