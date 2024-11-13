@@ -1,11 +1,11 @@
-namespace HomeAutomation.Controllers;
+namespace HomeAutomation.TargetTemp;
 
-public interface ITemperatureController
+public interface ITargetTemperatureProvider
 {
     double GetTargetTemperature();
 }
 
-public class SimpleTemperatureController(double targetTemperature) : ITemperatureController
+public class SimpleTargetTemperatureProvider(double targetTemperature) : ITargetTemperatureProvider
 {
     private readonly double _targetTemperature = targetTemperature;
 

@@ -1,17 +1,17 @@
 using HomeAutomation.Simulation;
 
-namespace HomeAutomation.Sensors;
+namespace HomeAutomation.CurrentTemp;
 
-public interface ITemperatureProvider
+public interface ICurrTemperatureProvider
 {
-    double GetCurTemperature();
+    double GetCurrTemperature();
 }
 
-public class PerfectTemperatureSensor(Room room) : ITemperatureProvider
+public class PerfectTemperatureSensor(Room room) : ICurrTemperatureProvider
 {
     private readonly Room _room = room;
 
-    public double GetCurTemperature()
+    public double GetCurrTemperature()
     {
         return _room.Temperature;
     }
@@ -27,12 +27,12 @@ public class PerfectTemperatureSensor(Room room) : ITemperatureProvider
     }
 }
 
-public class NoisyTemperatureSensor(Room room) : ITemperatureProvider
+public class NoisyTemperatureSensor(Room room) : ICurrTemperatureProvider
 {
     private readonly Room _room = room;
     private readonly Random _random = new();
 
-    public double GetCurTemperature()
+    public double GetCurrTemperature()
     {
         // Add noise between -1.0 and 1.0 to the signal.
         return _room.Temperature + _random.NextDouble() * 2.0 - 1.0;

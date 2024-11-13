@@ -1,22 +1,22 @@
 using HomeAutomation.Actuators;
-using HomeAutomation.Controllers;
-using HomeAutomation.Sensors;
+using HomeAutomation.CurrentTemp;
+using HomeAutomation.TargetTemp;
 
-namespace HomeAutomation.System;
+namespace HomeAutomation.Control;
 
-public class TemperatureManagement(
-    ITemperatureProvider temperatureProvider,
+public class TemperatureController(
+    ICurrTemperatureProvider temperatureProvider,
     IHeatProvider heatProvider,
-    ITemperatureController temperatureController)
+    ITargetTemperatureProvider temperatureController)
 {
-    private readonly ITemperatureProvider _tempProvider = temperatureProvider;
+    private readonly ICurrTemperatureProvider _tempProvider = temperatureProvider;
     private readonly IHeatProvider _heatProvider = heatProvider;
-    private readonly ITemperatureController _tempController = temperatureController;
+    private readonly ITargetTemperatureProvider _tempController = temperatureController;
 
     public void Run()
     {
         double targetTemperature = _tempController.GetTargetTemperature();
-        double curTemperature = _tempProvider.GetCurTemperature();
+        double curTemperature = _tempProvider.GetCurrTemperature();
 
         Console.WriteLine($"Current temp: {curTemperature:F2}°C, target temp: {targetTemperature:F2}°C");
 
