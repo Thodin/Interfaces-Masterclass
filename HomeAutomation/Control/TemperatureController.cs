@@ -5,18 +5,18 @@ using HomeAutomation.TargetTemp;
 namespace HomeAutomation.Control;
 
 public class TemperatureController(
-    ICurrTemperatureProvider temperatureProvider,
+    ICurrTemperatureProvider currTempProvider,
     IHeatProvider heatProvider,
-    ITargetTemperatureProvider temperatureController)
+    ITargetTemperatureProvider targetTempProvider)
 {
-    private readonly ICurrTemperatureProvider _tempProvider = temperatureProvider;
+    private readonly ICurrTemperatureProvider _currTempProvider = currTempProvider;
     private readonly IHeatProvider _heatProvider = heatProvider;
-    private readonly ITargetTemperatureProvider _tempController = temperatureController;
+    private readonly ITargetTemperatureProvider _targetTempProvider = targetTempProvider;
 
     public void Run()
     {
-        double targetTemperature = _tempController.GetTargetTemperature();
-        double curTemperature = _tempProvider.GetCurrTemperature();
+        double targetTemperature = _targetTempProvider.GetTargetTemperature();
+        double curTemperature = _currTempProvider.GetCurrTemperature();
 
         Console.WriteLine($"Current temp: {curTemperature:F2}°C, target temp: {targetTemperature:F2}°C");
 
