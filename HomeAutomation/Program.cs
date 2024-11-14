@@ -14,13 +14,13 @@ int numSimulationSteps = 70;
 var room = new Room(20.0);
 var tempSensor = new PerfectTemperatureSensor(room);
 var heater = new SimpleHeater();
-var tempController = new SimpleTargetTemperatureProvider(24.0);
+var targetTempProvider = new SimpleTargetTemperatureProvider(24.0);
 
-var tempManagement = new TemperatureController(tempSensor, heater, tempController);
+var tempController = new TemperatureController(tempSensor, heater, targetTempProvider);
 
 for (int i = 0; i < numSimulationSteps; ++i)
 {
-    tempManagement.Run();
+    tempController.Run();
 
     // Simulate the room.
     room.ComputeTick(heater.GetCurPower(), simulationInterval);
