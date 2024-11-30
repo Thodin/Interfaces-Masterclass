@@ -48,3 +48,20 @@ public class NoisyTemperatureSensor(Room room) : ICurrTemperatureProvider
         // Pretend to set calibration offset...
     }
 }
+
+public class FilteredCurrTemperatureProvider(ICurrTemperatureProvider tempProvider, IFilter filter) : ICurrTemperatureProvider
+{
+    private readonly ICurrTemperatureProvider _tempProvider = tempProvider;
+    private IFilter _filter = filter;
+
+    public double GetCurrTemperature()
+    {
+        _filter.AddUnfilteredValue(_tempProvider.GetCurrTemperature());
+        return _filter.GetFilteredValue();
+    }
+
+    public void SetFilter(IFilter filter)
+    {
+        _filter = filter;
+    }
+}

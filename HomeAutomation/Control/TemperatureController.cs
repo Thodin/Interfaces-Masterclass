@@ -9,16 +9,18 @@ public class TemperatureController(
     IHeatProvider heatProvider,
     ITargetTemperatureProvider targetTempProvider)
 {
-    private readonly ICurrTemperatureProvider _currTempProvider = currTempProvider;
+    private ICurrTemperatureProvider _currTempProvider = currTempProvider;
     private readonly IHeatProvider _heatProvider = heatProvider;
     private readonly ITargetTemperatureProvider _targetTempProvider = targetTempProvider;
+
+    private bool _aboveTargetTemperature = false;
 
     public void Run()
     {
         double targetTemperature = _targetTempProvider.GetTargetTemperature();
         double curTemperature = _currTempProvider.GetCurrTemperature();
 
-        Console.WriteLine($"Current temp: {curTemperature:F2}°C, target temp: {targetTemperature:F2}°C");
+        Console.WriteLine($"Current measured temp: {curTemperature:F2}°C, target temp: {targetTemperature:F2}°C");
 
         if (curTemperature < targetTemperature)
         {
@@ -27,6 +29,7 @@ public class TemperatureController(
                 Console.WriteLine("Turning heater on.");
                 _heatProvider.TurnOn();
                 _heatProvider.SetHeatingPower(1000);
+                _aboveTargetTemperature = false;
             }
         }
         else
@@ -35,7 +38,18 @@ public class TemperatureController(
             {
                 Console.WriteLine("Turning heater off.");
                 _heatProvider.TurnOff();
+                _aboveTargetTemperature = true;
             }
         }
+    }
+
+    public bool IsAboveTargetTemperature()
+    {
+        return _aboveTargetTemperature;
+    }
+
+    public void SetCurrTemperatureProvider(ICurrTemperatureProvider provider)
+    {
+        _currTempProvider = provider;
     }
 }

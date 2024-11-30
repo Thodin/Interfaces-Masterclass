@@ -14,11 +14,11 @@ public class MovingAverageFilter(int filterSize) : IFilter
     // Array to hold all the values in the filter. Default initialization to zeros.
     // We only need this for knowing which old value needs to be removed when a 
     // new one comes in.
-    private readonly double[] values = new double[filterSize];
+    private readonly double[] _values = new double[filterSize];
     // The sum of all values.
-    private double sum = 0.0;
+    private double _sum = 0.0;
     // The index that will be written to next in the values array.
-    private int indexToWriteNext = 0;
+    private int _indexToWriteNext = 0;
 
     public void AddUnfilteredValue(double value)
     {
@@ -27,11 +27,11 @@ public class MovingAverageFilter(int filterSize) : IFilter
             ++_curNumValues;
         }
         // Update the sum.
-        sum = sum - values[indexToWriteNext] + value;
+        _sum = _sum - _values[_indexToWriteNext] + value;
         // Add to the values array.
-        values[indexToWriteNext] = value;
+        _values[_indexToWriteNext] = value;
         // Update the next to write index, wrap around.
-        indexToWriteNext = (indexToWriteNext + 1) % _filterSize;
+        _indexToWriteNext = (_indexToWriteNext + 1) % _filterSize;
     }
 
     public double GetFilteredValue()
@@ -42,7 +42,18 @@ public class MovingAverageFilter(int filterSize) : IFilter
         // or hold the average as member, which requires the division when a value is added.
         // It is preferred to do the division in the action that is expected to occurr less often.
         // In our example, #reads = #writes, thus it doesn't matter.
-        return sum / _curNumValues;
+        return _sum / _curNumValues;
+    }
+
+    public void Clear()
+    {
+        _sum = 0.0;
+        _indexToWriteNext = 0;
+        _curNumValues = 0;
+        for (int i = 0; i < _values.Length; ++i)
+        {
+            _values[i] = 0.0;
+        }
     }
 }
 
@@ -62,5 +73,27 @@ public class DeadbandFilter(double bandwidth) : IFilter
     public double GetFilteredValue()
     {
         return _filteredValue;
+    }
+
+    public void SetMedianValue(double value)
+    {
+        _filteredValue = value;
+    }
+}
+
+public class FilterDecorator(IFilter wrappedFilter, IFilter addedFilter) : IFilter
+{
+    private readonly IFilter _wrappeFilter = wrappedFilter;
+    private readonly IFilter _addedFilter = addedFilter;
+
+    public void AddUnfilteredValue(double value)
+    {
+        _wrappeFilter.AddUnfilteredValue(value);
+        _addedFilter.AddUnfilteredValue(_wrappeFilter.GetFilteredValue());
+    }
+
+    public double GetFilteredValue()
+    {
+        return _addedFilter.GetFilteredValue();
     }
 }
