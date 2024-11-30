@@ -35,13 +35,13 @@ for (int i = 0; i < numSimulationSteps; ++i)
     {
         Console.WriteLine("Changing filter to deadband.");
         deadbandFilter.SetMedianValue(targetRoomTemp);
-        filteredTempSensor.SetFilter(movingAverageDeadbandFilter);
+        filteredTempSensor.SetFilter(deadbandFilter);
         wasAboveTargetTemperature = true;
     }
     else if (wasAboveTargetTemperature && !tempController.IsAboveTargetTemperature())
     {
         Console.WriteLine("Changing filter to moving average.");
-        // movingAverageFilter.Clear();
+        movingAverageFilter.Clear();
         filteredTempSensor.SetFilter(movingAverageFilter);
         wasAboveTargetTemperature = false;
     }
