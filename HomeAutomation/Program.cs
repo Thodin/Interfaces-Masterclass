@@ -2,6 +2,7 @@
 using HomeAutomation.Actuators;
 using HomeAutomation.Control;
 using HomeAutomation.CurrentTemp;
+using HomeAutomation.Logging;
 using HomeAutomation.Simulation;
 using HomeAutomation.TargetTemp;
 
@@ -16,7 +17,12 @@ var tempSensor = new PerfectTemperatureSensor(room);
 var heater = new SimpleHeater();
 var targetTempProvider = new SimpleTargetTemperatureProvider(24.0);
 
+var consoleLogger = new ConsoleLogger();
+var fileLogger = new FileLogger("log.txt");
+
 var tempController = new TemperatureController(tempSensor, heater, targetTempProvider);
+
+tempController.SetLogger(fileLogger);
 
 for (int i = 0; i < numSimulationSteps; ++i)
 {
