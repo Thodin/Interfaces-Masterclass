@@ -19,13 +19,48 @@ public class TemperatureControllerTest
         }
     }
 
+    public class MockTargetTemperatureProvider(double temp) : ITargetTemperatureProvider
+    {
+        private readonly double _temp = temp;
+
+        public double GetTargetTemperature()
+        {
+            return _temp;
+        }
+    }
+
+    public class MockHeater : IHeatProvider
+    {
+        private bool _isOn = false;
+
+        public bool IsOn()
+        {
+            return _isOn;
+        }
+
+        public void SetHeatingPower(double wattage)
+        {
+            // no-op
+        }
+
+        public void TurnOff()
+        {
+            _isOn = false;
+        }
+
+        public void TurnOn()
+        {
+            _isOn = true;
+        }
+    }
+
     [Fact]
     public void HeaterTurnsOnWhenBelowTargetTemperature()
     {
         // Arrange
         var tempSensor = new MockTemperatuerSensor(20.0);
-        var targetTempProvider = new SimpleTargetTemperatureProvider(24.0);
-        var heater = new SimpleHeater();
+        var targetTempProvider = new MockTargetTemperatureProvider(24.0);
+        var heater = new MockHeater();
         var tempController = new TemperatureController(tempSensor, heater, targetTempProvider);
 
         // Act
@@ -41,8 +76,8 @@ public class TemperatureControllerTest
     {
         // Arrange
         var tempSensor = new MockTemperatuerSensor(28.0);
-        var targetTempProvider = new SimpleTargetTemperatureProvider(24.0);
-        var heater = new SimpleHeater();
+        var targetTempProvider = new MockTargetTemperatureProvider(24.0);
+        var heater = new MockHeater();
         var tempController = new TemperatureController(tempSensor, heater, targetTempProvider);
 
         // Act
